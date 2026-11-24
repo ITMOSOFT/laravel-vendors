@@ -2,6 +2,8 @@
 
 namespace ItmoSoft\Vendors\Tests;
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use ItmoSoft\Vendors\VendorsServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -27,7 +29,7 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        \Illuminate\Support\Facades\Schema::create('users', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

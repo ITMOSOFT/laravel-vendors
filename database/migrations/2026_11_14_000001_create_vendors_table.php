@@ -6,11 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    protected function tableName(): string
     {
         $prefix = config('itmosoft-vendors.table_prefix', 'itmosoft_');
 
-        Schema::create($prefix.'vendors', function (Blueprint $table) {
+        if (! is_string($prefix) || preg_match('/^[A-Za-z0-9_]*$/D', $prefix) !== 1) {
+            throw new \InvalidArgumentException(
+                'The vendor table_prefix must contain only letters, numbers and underscores.'
+            );
+        }
+
+        return $prefix.'vendors';
+    }
+
+    public function up(): void
+    {
+        Schema::create($this->tableName(), function (Blueprint $table) {
             $table->id();
             $table->morphs('owner');
             $table->string('name');
@@ -28,7 +39,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        $prefix = config('itmosoft-vendors.table_prefix', 'itmosoft_');
-        Schema::dropIfExists($prefix.'vendors');
+        Schema::dropIfExists($this->tableName());
     }
 };

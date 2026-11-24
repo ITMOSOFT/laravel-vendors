@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.1] - 2026-11-24
+
+### Fixed
+- Validate vendor table-prefix configuration before using it in model and migration table names.
+- Validate the configured default vendor status and allowed status list.
+- Set `approved_at` when a vendor is created with an approved default status.
+- Preserve the original approval timestamp when an already-approved vendor is approved again.
+- Reject unsaved owner models, empty names/slugs, invalid attribute types, and unknown vendor attributes.
+
+### Tests
+- Expand manager tests for invalid configuration, input validation, default approval state, and approval timestamp behavior.
+
 ## [1.0.0] - 2026-11-14
 
 - Initial release.
